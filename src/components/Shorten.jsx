@@ -1,15 +1,17 @@
 import { useState } from "react";
 
 const Shorten = () => {
-  const [email, setEmail] = useState("");
+  const [website, setWebsite] = useState("");
   const [error, setError] = useState("");
-  const validateEmail = (value) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const validateWebsite = (value) => {
+    const websiteRegex =
+      /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/\S*)?$/;
     if (!value) {
-      setError("Email is required");
+      setError("Website link is required");
       return false;
-    } else if (!emailRegex.test(value)) {
-      setError("Invalid email format");
+    } else if (!websiteRegex.test(value)) {
+      setError("Invalid website link format");
       return false;
     } else {
       setError("");
@@ -18,20 +20,21 @@ const Shorten = () => {
   };
 
   const handleInputChange = (event) => {
-    setEmail(event.target.value);
-    validateEmail(event.target.value);
+    setWebsite(event.target.value);
+    validateWebsite(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (validateEmail(email)) {
+    if (validateWebsite(website)) {
       // Proceed with form submission
-      console.log("Valid email:", email);
+      console.log("Valid website link:", website);
     } else {
       // Validation failed, do something like displaying an error message
-      console.log("Invalid email:", email);
+      console.log("Invalid website link:", website);
     }
   };
+
   return (
     <section id="shorten">
       <div className="max-w-4xl mx-auto p-6 space-y-6">
@@ -41,15 +44,20 @@ const Shorten = () => {
           className="relative flex flex-col w-full p-10 -mt-20 space-y-4 bg-darkViolet rounded-lg md:flex-row md:space-y-0 md:space-x-3"
         >
           <input
-            type="email"
-            value={email}
+            type="text"
+            value={website}
             onChange={handleInputChange}
             className="flex-1 p-3 border-2 rounded-lg placeholder-yellow-500 focus:outline-none"
             placeholder="Shorten a link here"
             id="link-input"
           />
           {error && <div className="text-red flex items-center">{error}</div>}
-          <button className="px-10 py-3 text-white bg-cyan rounded-lg hover:bg-cyanLight focus:outline-none md:py-2">
+          <button
+            onClick={() => {
+              validateWebsite(website) && alert("success");
+            }}
+            className="px-10 py-3 text-white bg-cyan rounded-lg hover:bg-cyanLight focus:outline-none md:py-2"
+          >
             Shorten It
           </button>
         </form>
