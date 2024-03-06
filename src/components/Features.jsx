@@ -21,7 +21,7 @@ const Features = () => {
           <h5 className="pt-6 text-xl font-bold text-center capitalize md:text-left">
             Brand Recognition
           </h5>
-          <p class="text-center text-gray-400 md:text-left">
+          <p className="text-center text-gray-400 md:text-left">
             Boost your brand recognition with each click. Generic links don't
             mean a thing. Branded links help instil confidence in your content.
           </p>
@@ -38,7 +38,7 @@ const Features = () => {
           <h5 className="pt-6 text-xl font-bold text-center capitalize md:text-left">
             Detailed Records
           </h5>
-          <p class="text-center text-gray-400 md:text-left">
+          <p className="text-center text-gray-400 md:text-left">
             Gain insights into who is clicking your links. Knowing when and
             where people engage with your content helps inform better decisions.
           </p>
@@ -55,7 +55,7 @@ const Features = () => {
           <h5 className="pt-6 text-xl font-bold text-center capitalize md:text-left">
             Fully customizable
           </h5>
-          <p class="text-center text-gray-400 md:text-left">
+          <p className="text-center text-gray-400 md:text-left">
             Improve brand awareness and content discoverability through
             customizable links, supercharging audience engagement.
           </p>
