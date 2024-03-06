@@ -1,6 +1,30 @@
 import { useState } from "react";
 
 const Shorten = () => {
+  const generateRandomNum = () => {
+    const min = 100000;
+    const max = 999999;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
+  let isEven = true;
+  const [links, setLinks] = useState([
+    {
+      id: 1,
+      link: "https://dummylink.io",
+      shortenedLink: "https://rel.ink/k4IKyk",
+    },
+    {
+      id: 2,
+      link: "https://www.linkedin.com/in/sameh-mohamed-219a02206/",
+      shortenedLink: "https://rel.ink/e4RxJk",
+    },
+    {
+      id: 3,
+      link: "https://github.com/sameh-abdelhalem/shortly",
+      shortenedLink: "https://rel.ink/j2LGyk",
+    },
+  ]);
   const [website, setWebsite] = useState("");
   const [error, setError] = useState("");
 
@@ -54,52 +78,44 @@ const Shorten = () => {
           {error && <div className="text-red flex items-center">{error}</div>}
           <button
             onClick={() => {
-              validateWebsite(website) && alert("success");
+              validateWebsite(website) &&
+                setLinks((prevState) => [
+                  {
+                    link: website,
+                    shortenedLink: `https://rel.ink/${generateRandomNum()}`,
+                    id: Math.random(),
+                  },
+                  ...prevState,
+                ]);
             }}
             className="px-10 py-3 text-white bg-cyan rounded-lg hover:bg-cyanLight focus:outline-none md:py-2"
           >
             Shorten It
           </button>
         </form>
+
         {/* Link 1 */}
-        <div className="flex flex-col items-center justify-between w-full p-6 bg-white rounded-lg md:flex-row">
-          <p className="font-bold text-center text-veryDarkViolet md:text-left">
-            https://dummylink.io
-          </p>
+        {links.map((link) => {
+          isEven = !isEven;
+          return (
+            <div className="flex flex-col items-center justify-between w-full p-6 bg-white rounded-lg md:flex-row">
+              <p className="font-bold text-center text-veryDarkViolet md:text-left">
+                {link.link}
+              </p>
 
-          <div className="flex flex-col items-center justify-end flex-1 space-x-4 space-y-2 md:flex-row md:space-y-0">
-            <div className="font-bold text-cyan">https://rel.ink/k4IKyk</div>
-            <button className="p-2 px-8 text-white bg-cyan rounded-lg hover:opacity-70 focus:outline-none">
-              Copy
-            </button>
-          </div>
-        </div>
-        {/* Link 2 */}
-        <div className="flex flex-col items-center justify-between w-full p-6 bg-white rounded-lg md:flex-row">
-          <p className="font-bold text-center text-veryDarkViolet md:text-left">
-            https://www.linkedin.com/in/sameh-mohamed-219a02206/
-          </p>
-
-          <div className="flex flex-col items-center justify-end flex-1 space-x-4 space-y-2 md:flex-row md:space-y-0">
-            <div className="font-bold text-cyan">https://rel.ink/e4RxJk</div>
-            <button className="p-2 px-8 text-white bg-darkViolet rounded-lg hover:opacity-70 focus:outline-none">
-              Copy
-            </button>
-          </div>
-        </div>
-        {/* Link 3 */}
-        <div className="flex flex-col items-center justify-between w-full p-6 bg-white rounded-lg md:flex-row">
-          <p className="font-bold text-center text-veryDarkViolet md:text-left">
-            https://github.com/sameh-abdelhalem/shortly
-          </p>
-
-          <div className="flex flex-col items-center justify-end flex-1 space-x-4 space-y-2 md:flex-row md:space-y-0">
-            <div className="font-bold text-cyan">https://rel.ink/j2LGyk</div>
-            <button className="p-2 px-8 text-white bg-cyan rounded-lg hover:opacity-70 focus:outline-none">
-              Copy
-            </button>
-          </div>
-        </div>
+              <div className="flex flex-col items-center justify-end flex-1 space-x-4 space-y-2 md:flex-row md:space-y-0">
+                <div className="font-bold text-cyan">{link.shortenedLink}</div>
+                <button
+                  className={`p-2 px-8 text-white ${
+                    !isEven ? "bg-cyan" : "bg-darkViolet"
+                  } rounded-lg hover:opacity-70 focus:outline-none`}
+                >
+                  Copy
+                </button>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
